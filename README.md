@@ -1,7 +1,8 @@
 # Next.js + Supabase 플레이그라운드
 
-> 수정중..
 > Next.js와 Supabase를 사용한 개인용 프로젝트 템플릿입니다.
+
+수정중..<br/>
 
 ## 기술 스택
 
@@ -52,6 +53,16 @@ pnpm dev
 ```
 
 [http://localhost:3000](http://localhost:3000)에서 실행된 프로젝트를 확인할 수 있습니다.
+
+## 폴더 구조
+
+`Features Folder`구조를 사용하고있습니다.<br/>
+
+아래 링크들을 참고하여 작업하였습니다. 참고해주세요!<br/><br/>
+
+[그대-Next.js-14-폴더-아키텍처를-어떻게-할것인가](https://velog.io/@koreanthuglife/%EA%B7%B8%EB%8C%80-Next.js-14-%ED%8F%B4%EB%8D%94-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98%EB%A5%BC-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%A0%EA%B2%83%EC%9D%B8%EA%B0%80-feat.-medium)<br/>
+
+[docs/project-structure](https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md)
 
 ## 주요 기능
 
