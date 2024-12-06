@@ -75,11 +75,23 @@ pnpm dev
 ## 프로젝트 구조
 
 ```
-├── app/
-├── components/
-├── lib/
-├── public/
-└── utils/
+├── .github/                # GitHub 관련 파일
+├── src/                    # 소스 디렉토리
+│   ├── app/               # Next.js 앱 라우터 페이지
+│   ├── features/          # 기능별 모듈
+│   ├── lib/               # 라이브러리 설정
+│   ├── middleware/        # 커스텀 미들웨어
+│   ├── providers/         # 컨텍스트 프로바이더
+│   ├── shared/           # 공유 리소스
+│   │   ├── components/   # 공통 컴포넌트
+│   │   ├── ui/           # UI 컴포넌트
+│   │   ├── store/        # 상태 관리
+│   │   └── utils/        # 유틸리티 함수
+├── public/                # 정적 파일
+├── .env.example          # 환경 변수 예시
+├── next.config.js        # Next.js 설정
+├── tailwind.config.js    # Tailwind CSS 설정
+└── tsconfig.json         # TypeScript 설정
 ```
 
 ## 라이선스
