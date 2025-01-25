@@ -1,56 +1,40 @@
-'use client';
+'use client'
 
-import { useEffect } from 'react';
-import { createClient } from '@/utils/supabase/client';
-import { useUserStore } from '@/store/userStore';
+import { useEffect } from 'react'
+import { createClient } from '@/lib/supabase/client'
+import { useUserStore } from '@/store/userStore'
+import {  useQueryClient } from '@tanstack/react-query'
 
-export function AuthStateManager({ children }: { children: React.ReactNode }) {
-  const supabase = createClient();
-  const { setLoading, setUser } = useUserStore();
+export function AuthProvider({ children }: React.PropsWithChildren) {
+  const supabase = createClient()
+  const queryClient = useQueryClient()
 
   useEffect(() => {
-    setLoading(true);
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    // 초기 인증 상태 동기화
+    const initializeAuth = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
       if (session?.user) {
-        supabase
-          .from('members')
-          .select('*')
-          .eq('id', session.user.id)
-          .single()
-          .then(({ data }) => {
-            setUser(data);
-            setLoading(false);
-          });
+        queryClient.invalidateQueries({ queryKey: ['auth'] })
       }
-    });
-    setLoading(false);
+    }
 
+    initializeAuth()
+
+    // 인증 상태 변경 구독
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_OUT') {
-        setUser(null);
+      if (event === 'SIGNED_IN') {
+        queryClient.invalidateQueries({ queryKey: ['auth'] })
+      } else if (event === 'SIGNED_OUT') {
+        queryClient.setQueryData(['auth'], null)
       }
+    })
 
-      setTimeout(async () => {
-        if (session?.user) {
-          const { data } = await supabase
-            .from('members')
-            .select('*')
-            .eq('id', session.user.id)
-            .single();
+    return () => subscription.unsubscribe()
+  }, [queryClient, supabase])
 
-          setUser(data);
-        }
-      }, 0);
-    });
-
-    return () => subscription.unsubscribe();
-  }, [setUser, setLoading, supabase]);
-
-  return children;
-}
-
-export function AuthProvider({ children }: { children: React.ReactNode }) {
-  return <AuthStateManager>{children}</AuthStateManager>;
+  return (children)
 }

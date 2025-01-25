@@ -1,18 +1,19 @@
 'use client'
 
 import { Button } from '@/shared/components/ui/button'
-import { createClient } from '@/utils/supabase/client'
+import { createClient } from '@/lib/supabase/client'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 
 export function KakaoLoginBtn() {
-  const searchParams = useSearchParams()
-  const next = searchParams.get('redirect_to') ?? ''
-
   const supabase = createClient()
-  const siteUrl = process.env.NEXT_PUBLIC_VERCEL_URL || window.location.origin
+  const searchParams = useSearchParams()
+  const redirectTo = searchParams.get('redirect_to')
 
   const handleKakaoSignIn = async () => {
+    const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || window.location.origin
+    const next = redirectTo ?? ''
+
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'kakao',
       options: {

@@ -14,6 +14,7 @@
 - **로그인**:
   - 카카오 로그인
   - Supabase 인증
+- **@tanstack/react-query**
 
 ## 시작하기
 
@@ -52,25 +53,39 @@ yarn dev
 pnpm dev
 ```
 
-[http://localhost:3000](http://localhost:3000)에서 실행된 프로젝트를 확인할 수 있습니다.
+[http://localhost:3000](http://localhost:3000)에서 실행된 프로젝트를 확인할 수 있습니다. <br/>
+
+### supabase type 설정하기
+
+> supabase는 테이블의 타입을 간단히 `명령어`로 프로젝트로 가져올 수 있습니다. 다음은 그에대한 설명입니다.
+
+- package.json에 `script` 부분을 보시면 다음과 같이 있습니다.
+
+```js
+ "gen:types": "npx supabase gen types typescript --project-id YOURsupabaseProjectId --schema public > src/types/supabase.ts"
+```
+
+- `--project-id` 다음에 오는 부분을 본인 supabase 프로젝트 id로 해주시면 됩니다. 그리고 다음과 같은 순서를 따라주세요
+
+1. supabase login - `npx supabase login`
+2. npm run gen:types 입력
+
+이렇게 하시면 supabase 테이블들의 타입들을 가져올 수 있습니다.
 
 ## 폴더 구조
 
 `Features Folder`구조를 사용하고있습니다.<br/>
 
-아래 링크들을 참고하여 작업하였습니다. 참고해주세요!<br/><br/>
-
-[그대-Next.js-14-폴더-아키텍처를-어떻게-할것인가](https://velog.io/@koreanthuglife/%EA%B7%B8%EB%8C%80-Next.js-14-%ED%8F%B4%EB%8D%94-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98%EB%A5%BC-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%A0%EA%B2%83%EC%9D%B8%EA%B0%80-feat.-medium)<br/>
-
-[docs/project-structure](https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md)
+폴더 아키텍쳐는 아래 링크들을 참고하여 작업하였습니다. 밑에 **참고 자료** 섹션을 참고해주세요!
 
 ## 주요 기능
 
 - ⚡ Next.js 14 App Router 사용
-- 🔐 Supabase와 카카오 로그인을 통한 인증
+- 🔐 Supabase와 react-query를 활용한 카카오 로그인
 - 💾 Supabase 데이터베이스
 - 🎨 Tailwind CSS와 shadcn/ui 컴포넌트로 스타일링
 - 📱 반응형 디자인
+- 💧 리액트 쿼리 하이드레이션 코드
 
 ## 프로젝트 구조
 
@@ -97,3 +112,11 @@ pnpm dev
 ## 라이선스
 
 이 프로젝트는 MIT 라이선스를 따릅니다.
+
+## 참고 자료
+
+[그대-Next.js-14-폴더-아키텍처를-어떻게-할것인가](https://velog.io/@koreanthuglife/%EA%B7%B8%EB%8C%80-Next.js-14-%ED%8F%B4%EB%8D%94-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98%EB%A5%BC-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%A0%EA%B2%83%EC%9D%B8%EA%B0%80-feat.-medium)<br/>
+
+[docs/project-structure](https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md)
+
+[Next.js app router에서 React Query 사용하면서 고민했던 것들](https://soobing.github.io/react/next-app-router-react-query/#google_vignette)

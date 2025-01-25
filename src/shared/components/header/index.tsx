@@ -1,5 +1,8 @@
+'use client'
+
 import Link from 'next/link'
-import { Button } from '../ui/button'
+import LoginBtn from '../auth/LoginButton'
+import AuthStatus from '../auth/AuthStatus'
 
 export function Header() {
   return (
@@ -7,9 +10,7 @@ export function Header() {
       <Link href='/' className='text-lg font-bold sm:text-xl'>
         로고
       </Link>
-      <Button size='sm' className='text-sm sm:px-4 sm:text-base'>
-        <Link href='/auth/login'>로그인</Link>
-      </Button>
+      <AuthStatus />
     </header>
   )
 }
